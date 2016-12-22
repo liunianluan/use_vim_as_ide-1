@@ -1,157 +1,119 @@
-" 定义快捷键的前缀，即 <Leader>
-let mapleader=","
+let mapleader=','
+let g:solarized_termcolors=256    "solarized主题设置在终端下的设置
 
-" 开启文件类型侦测
-filetype on
-" 根据侦测到的不同类型加载对应的插件
-filetype plugin on
+syntax on    "开启语法高亮
 
-" vim 自身（非插件）快捷键
-" 定义快捷键到行首和行尾
-nmap LB 0
-nmap LE $
+set nocompatible "关闭兼容模式
+set number " 显示行号
+set clipboard=unnamed "使用系统剪切板
+set guioptions-=r " 隐藏滚动条
+set guioptions-=L
+set guioptions-=b
+set showtabline=0 "隐藏顶部标签栏
+set background=dark        "设置背景色
+set nowrap    "设置不折行
+set fileformat=unix    "设置以unix的格式保存文件
+set cindent        "设置C样式的缩进格式
+set tabstop=4    "设置table长度
+set shiftwidth=4        "设置shift宽度
+set showmatch    "显示匹配的括号
+set scrolloff=5        "距离顶部和底部5行
+set laststatus=2    "命令行为两行
+set fenc=utf-8      "文件编码
+set backspace=2
+set mouse=a        "启用鼠标
+"set selection=exclusive
+"set selectmode=mouse,key
+set matchtime=5
+set ignorecase        "忽略大小写
+set incsearch "开启实时搜索功能
+set hlsearch        "高亮搜索项
+set noexpandtab        "不允许扩展table
+set whichwrap+=<,>,h,l "设置可移出当前行
+set autoread "文件在外部修改，自动重新载入
+set cursorline        "突出显示当前行
+"set cursorcolumn        "突出显示当前列
 
-" 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
-" 设置快捷键将系统剪贴板内容粘贴至vim
-nmap <Leader>p "+p
-
-" 定义快捷键关闭当前分割窗口
+"nmap <Leader>p "+p
 nmap <Leader>q :q<CR>
-" 定义快捷键保存当前窗口内容
 nmap <Leader>w :w<CR>
-" 定义快捷键保存所有窗口内容并退出 vim
-nmap <Leader>WQ :wa<CR>:q<CR>
-" 不做任何保存，直接退出 vim
-nmap <Leader>Q :qa!<CR>
+nmap <Leader>M %
 
-" 设置快捷键遍历子窗口
-" 依次遍历
+nnoremap # *
+nnoremap * #
+nnoremap U <C-r>
+nnoremap <Leader>= gg=G<CR>
+
 nnoremap nw <C-W><C-W>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-" 定义快捷键在结对符之间跳转
-nmap <Leader>M %
 
-" 让配置变更立即生效
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd BufWritePost $MYVIMRC source $MYVIMRC "让配置变更立即生效
 
-" 开启实时搜索功能
-set incsearch
-" 搜索时大小写不敏感
-set ignorecase
-" 关闭兼容模式
-set nocompatible
-" vim 自身命令行模式智能补全
-set wildmenu
-" 系统剪贴板
-set clipboard=unnamed
-
-" 插件安装
-
-" vundle 环境设置
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-" vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间
 call vundle#begin()
-
 Plugin 'VundleVim/Vundle.vim'
-" 字体
-Plugin 'tomasr/molokai'
-" 状态栏美化
-Plugin 'Lokaltog/vim-powerline'
-" 可视化缩进
-Plugin 'nathanaelkane/vim-indent-guides'
-" 基于标签的标识符列表
-Plugin 'majutsushi/tagbar'
-" 内容查找
-Plugin 'dyng/ctrlsf.vim'
-" 内容替换
-Plugin 'terryma/vim-multiple-cursors'
-" 快速开关注释
-Plugin 'scrooloose/nerdcommenter'
-" 代码语法
-Plugin 'scrooloose/syntastic'
-" 模板补全
-Plugin 'SirVer/ultisnips'
-" 智能补全
 Plugin 'Valloric/YouCompleteMe'
-" 工程文件浏览
+Plugin 'tomasr/molokai'
+Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdtree'
-" 多文档编辑
-Plugin 'fholgado/minibufexpl.vim'
-" 快速编辑结对符
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'dyng/ctrlsf.vim'
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'gcmt/wildfire.vim'
-" 支持分支的 undo
-Plugin 'sjl/gundo.vim'
-" 快速移动
 Plugin 'Lokaltog/vim-easymotion'
-" markdown 即时预览
-Plugin 'suan/vim-instant-markdown'
-
-" 插件列表结束
 call vundle#end()
 filetype plugin indent on
-
-" 配色方案
-set background=dark
-colorscheme molokai
-
-" 营造专注气氛
-" 禁止光标闪烁
-set gcr=a:block-blinkon0
-
-" 禁止显示滚动条
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-
-" 禁止显示菜单和工具条
-set guioptions-=m
-set guioptions-=T
-
-" 辅助信息
-" 总是显示状态栏
-set laststatus=2
-" 显示光标当前位置
-set ruler
-" 开启行号显示
-set number
-" 高亮显示当前行/列
-set cursorline
-"set cursorcolumn
-" 高亮显示搜索结果
-set hlsearch
-
-" 其他美化
-" 设置 gvim 显示字体
-set guifont=YaHei\ Consolas\ Hybrid\ 10.5
-" 禁止折行
-set nowrap
-" 设置状态栏主题风格
-let g:Powerline_colorscheme='solarized256'
-
-" 语法分析
-" 开启语法高亮功能
-syntax enable
-" 允许用指定语法高亮配色方案替换默认方案
-syntax on
-
-" 缩进
-" 自适应不同语言的智能缩进
 filetype indent on
 
-" 将制表符扩展为空格
-set expandtab
-" 设置编辑时制表符占用空格数
-set tabstop=4
-" 设置格式化时制表符占用空格数
-set shiftwidth=4
-" 让 vim 把连续数量的空格视为一个制表符
-set softtabstop=4
+colorscheme molokai
+syntax enable
+syntax on
+
+"默认配置文件路径
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"打开vim时不再询问是否加载ycm_extra_conf.py配置
+let g:ycm_confirm_extra_conf=0
+set completeopt=longest,menu
+"python解释器路径
+let g:ycm_path_to_python_interpreter='/usr/bin/python'
+"是否开启语义补全
+let g:ycm_seed_identifiers_with_syntax=1
+"是否在注释中也开启补全
+let g:ycm_complete_in_comments=1
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+"开始补全的字符数
+let g:ycm_min_num_of_chars_for_completion=2
+"补全后自动关机预览窗口
+let g:ycm_autoclose_preview_window_after_completion=1
+" 禁止缓存匹配项,每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+"字符串中也开启补全
+let g:ycm_complete_in_strings = 1
+"离开插入模式后自动关闭预览窗口
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" 定义跳转
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"F2开启和关闭树
+nmap <Leader>fl :NERDTreeToggle<CR>
+let NERDTreeChDirMode=1
+let NERDTreeShowHidden=0
+"显示书签
+let NERDTreeShowBookmarks=1
+"设置忽略文件类型
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
+"窗口大小
+let NERDTreeWinSize=25
+"默认打开树
+autocmd VimEnter * NERDTree
 
 " 缩进可视化插件 Indent Guides
 " 随 vim 自启动
@@ -163,138 +125,26 @@ let g:indent_guides_guide_size=1
 " 快捷键 i 开/关缩进可视化
 nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
-" 代码折叠
-" 基于缩进或语法进行代码折叠
-"set foldmethod=indent
-set foldmethod=syntax
-" 启动 vim 时关闭折叠代码
-set nofoldenable
+"autopep8设置
+let g:autopep8_disable_show_diff=1
 
 " 使用 ctrlsf.vim 插件在工程内全局查找光标所在关键字，设置快捷键。快捷键速记法：search in project
-nnoremap <Leader>sp :CtrlSF<CR>
+nnoremap <Leader>sf :CtrlSF<CR>
 
 " 快捷替换
 let g:multi_cursor_next_key='<S-n>'
 let g:multi_cursor_skip_key='<S-k>'
-
-" 精准替换
-" 替换函数。参数说明：
-" confirm：是否替换前逐一确认
-" wholeword：是否整词匹配
-" replace：被替换字符串
-function! Replace(confirm, wholeword, replace)
-    wa
-    let flag = ''
-    if a:confirm
-        let flag .= 'gec'
-    else
-        let flag .= 'ge'
-    endif
-    let search = ''
-    if a:wholeword
-        let search .= '\<' . escape(expand('<cword>'), '/\.*$^~[') . '\>'
-    else
-        let search .= expand('<cword>')
-    endif
-    let replace = escape(a:replace, '/\&~')
-    execute 'argdo %s/' . search . '/' . replace . '/' . flag . '| update'
-endfunction
-" 不确认、非整词
-nnoremap <Leader>R :call Replace(0, 0, input('Replace '.expand('<cword>').' with: '))<CR>
-" 不确认、整词
-nnoremap <Leader>rw :call Replace(0, 1, input('Replace '.expand('<cword>').' with: '))<CR>
-" 确认、非整词
-nnoremap <Leader>rc :call Replace(1, 0, input('Replace '.expand('<cword>').' with: '))<CR>
-" 确认、整词
-nnoremap <Leader>rcw :call Replace(1, 1, input('Replace '.expand('<cword>').' with: '))<CR>
-nnoremap <Leader>rwc :call Replace(1, 1, input('Replace '.expand('<cword>').' with: '))<CR>
-
-" 模板补全
-" UltiSnips 的 tab 键与 YCM 冲突，重新设定
-let g:UltiSnipsSnippetDirectories=["mysnippets"]
-let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
-let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
-
-" YCM 补全
-
-" YCM 补全菜单配色
-" 菜单
-highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
-" 选中项
-highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
-
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
-" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
-let g:ycm_confirm_extra_conf=0
-" 开启 YCM 标签补全引擎
-let g:ycm_collect_identifiers_from_tags_files=0
-"" 引入 C++ 标准库 tags
-"set tags+=/data/misc/software/app/vim/stdcpp.tags
-"set tags+=/data/misc/software/app/vim/sys.tags
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-inoremap <leader>; <C-x><C-o>
-" 补全内容不以分割子窗口形式出现，只显示补全列表
-set completeopt-=preview
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
-" 定义跳转
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" 库信息参考
-
-" 启用:Man命令查看各类man信息
-source $VIMRUNTIME/ftplugin/man.vim
-" 定义:Man命令查看各类man信息的快捷键
-nmap <Leader>man :Man 3 <cword><CR>
-
-" 工程文件浏览
-" 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
-nmap <Leader>fl :NERDTreeToggle<CR>
-" 设置 NERDTree 子窗口宽度
-let NERDTreeWinSize=22
-" 设置 NERDTree 子窗口位置
-let NERDTreeWinPos="right"
-" 显示隐藏文件
-let NERDTreeShowHidden=1
-" NERDTree 子窗口中不显示冗余帮助信息
-let NERDTreeMinimalUI=1
-" 删除文件时自动删除文件对应 buffer
-let NERDTreeAutoDeleteBuffer=1
-" 隐藏文件
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-
-" 多文档编辑
-" 显示/隐藏 MiniBufExplorer 窗口
-map <Leader>bl :MBEToggle<cr>
-" buffer 切换快捷键
-map <Leader><Leader>a :MBEbn<cr>
-map <Leader><Leader>e :MBEbp<cr>
-
-" 环境恢复
-" 设置环境保存项
-set sessionoptions="blank,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-" 保存 undo 历史。必须先行创建 .undo_history/
-set undodir=~/.undo_history/
-set undofile
-
-" 保存快捷键
-"map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
-map <leader>ss :mksession! my.vim<cr>
-" 恢复快捷键
-"map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
-map <leader>rs :source my.vim<cr>
 
 " 快速选中结对符内的文本
 map <SPACE> <Plug>(wildfire-fuel)
 vmap <S-SPACE> <Plug>(wildfire-water)
 " 适用于哪些结对符
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
+
+" 启用:Man命令查看各类man信息
+source $VIMRUNTIME/ftplugin/man.vim
+" 定义:Man命令查看各类man信息的快捷键
+nmap <Leader>man :Man 3 <cword><CR>
 
 " 调用 gundo 树
 nnoremap <Leader>ud :GundoToggle<CR>
